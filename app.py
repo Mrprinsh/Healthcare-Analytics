@@ -16,7 +16,7 @@ st.set_page_config(page_title="AI Heart Disease Predictor", layout="wide")
 def load_files():
     rf_model = joblib.load("rf_model.pkl")
     scaler = joblib.load("scaler.pkl")
-    lstm_model = load_model("lstm_model.h5")
+    lstm_model = load_model("Istm_model.h5")   # <-- FIXED HERE
     return rf_model, scaler, lstm_model
 
 rf_model, scaler, lstm_model = load_files()
@@ -25,7 +25,7 @@ rf_model, scaler, lstm_model = load_files()
 #  UI Header
 # ---------------------------
 st.title("❤️ AI Heart Disease Prediction App")
-st.write("This app uses a Random Forest Machine Learning Model and LSTM Time-Series Model.")
+st.write("This app uses a Random Forest ML Model + LSTM Neural Network.")
 
 st.sidebar.header("Patient Details")
 
@@ -105,10 +105,10 @@ if st.button("🔍 Predict Heart Disease Risk"):
 # -------------------------------------------
 # LSTM Time-Series Prediction Demo
 # -------------------------------------------
-st.subheader("📈 LSTM Time-Series Case Forecast (Demo)")
+st.subheader("📈 LSTM Time-Series Forecast (Demo)")
 
 if st.button("Run LSTM Forecast"):
-    # Dummy last 7 values → model expects (7,1)
+    # Dummy sequence for demo (7 timesteps)
     sample = np.array([[0.1], [0.15], [0.2], [0.25], [0.3], [0.32], [0.35]])
     sample = sample.reshape(1, 7, 1)
 
@@ -116,5 +116,4 @@ if st.button("Run LSTM Forecast"):
 
     st.write(f"Predicted future value: **{lstm_pred[0][0]:.4f}**")
 
-
-st.info("Upload this app + rf_model.pkl + scaler.pkl + lstm_model.h5 to Streamlit Cloud.")
+st.info("Upload this app + rf_model.pkl + scaler.pkl + Istm_model.h5 to Streamlit Cloud.")
